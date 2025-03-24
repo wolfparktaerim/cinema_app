@@ -10,7 +10,6 @@ const popcorn_m = require('../assets/food/popcorn_m.jpg');
 const popcorn_l = require('../assets/food/popcorn_l.jpg');
 const popcorn_c = require('../assets/food/popcorn_c.png');
 const cola_m = require('../assets/food/cocacola_m.webp');
-const cola_l = require('../assets/food/cocacola_l.png');
 const sprite_m = require('../assets/food/sprite_m.jpeg');
 const nacho = require('../assets/food/nacho.webp');
 const hotdog = require('../assets/food/hotdog.jpg');
@@ -36,7 +35,7 @@ const foodCategories = [
     name: 'Drinks',
     items: [
       { id: '201', name: 'Coca-Cola (M)', price: 4.00, image: cola_m },
-      { id: '202', name: 'Coca-Cola (L)', price: 5.00, image: cola_l },
+      { id: '202', name: 'Coca-Cola (L)', price: 5.00, image: cola_m },
       { id: '203', name: 'Sprite (M)', price: 4.00, image: sprite_m },
       { id: '204', name: 'Sprite (L)', price: 5.00, image: sprite_m },
     ]
@@ -55,7 +54,7 @@ const foodCategories = [
     name: 'Combos',
     items: [
       { id: '401', name: 'Regular Popcorn + Drink', price: 10.00, image: combo_1 },
-      { id: '402', name: 'Movie Feast (Popcorn, Drink, Nachos)', price: 15.00, image: combo_2 },
+      { id: '402', name: 'Ultimate Movie Feast (Popcorn, Drink, Nachos)', price: 15.00, image: combo_2 },
     ]
   },
 ];

@@ -21,6 +21,7 @@ export default function TabLayout() {
         headerTitleStyle: {
           fontWeight: 'bold',
         },
+        tabBarShowLabel: false, // This hides the tab bar labels
       }}>
       <Tabs.Screen
         name="index"
@@ -34,6 +35,13 @@ export default function TabLayout() {
         options={{
           title: 'Food & Drinks',
           tabBarIcon: ({ color }) => <TabBarIcon name="cutlery" color={color} />,
+        }}
+      />
+      <Tabs.Screen
+        name="watch-together"
+        options={{
+          title: 'Watch Together',
+          tabBarIcon: ({ color }) => <TabBarIcon name="group" color={color} />, // Changed from 'users' to 'group'
         }}
       />
       <Tabs.Screen

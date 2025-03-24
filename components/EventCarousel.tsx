@@ -1,24 +1,22 @@
 import React from 'react';
 import { StyleSheet, View, Image, ScrollView, TouchableOpacity, Dimensions } from 'react-native';
-import { FontAwesome } from '@expo/vector-icons';
-
 import { Text } from '@/components/ThemedText';
 import Colors from '@/constants/Colors';
 import { useColorScheme } from '@/hooks/useColorScheme';
 
-// Define the movie type
-interface Movie {
+// Define the event type
+interface Event {
   id: string;
   title: string;
-  rating: number;
+  type: string;
   poster: string;
 }
 
 // Props for the component
-interface MovieCarouselProps {
-  movies: Movie[];
-  onMoviePress?: (movieId: string) => void;
-  onBookPress?: (movieId: string) => void;
+interface EventCarouselProps {
+  events: Event[];
+  onEventPress?: (eventId: string) => void;
+  onBookPress?: (eventId: string) => void;
 }
 
 // Get screen dimensions for better scaling
@@ -26,11 +24,11 @@ const { width } = Dimensions.get('window');
 const ITEM_WIDTH = width * 0.6;
 const ITEM_HEIGHT = ITEM_WIDTH * 1.3;
 
-export default function MovieCarousel({ 
-  movies, 
-  onMoviePress, 
+export default function EventCarousel({ 
+  events, 
+  onEventPress, 
   onBookPress 
-}: MovieCarouselProps) {
+}: EventCarouselProps) {
   const colorScheme = useColorScheme();
 
   return (
@@ -41,31 +39,24 @@ export default function MovieCarousel({
       snapToInterval={ITEM_WIDTH + 20}
       decelerationRate="fast"
     >
-      {movies.map(movie => (
-        <View key={movie.id} style={styles.movieCard}>
+      {events.map(event => (
+        <View key={event.id} style={styles.eventCard}>
           <TouchableOpacity
             style={styles.posterTouchable}
-            onPress={() => onMoviePress?.(movie.id)}
+            onPress={() => onEventPress?.(event.id)}
             activeOpacity={0.8}
           >
             <View style={styles.posterContainer}>
               <Image
-                source={typeof movie.poster === 'string' ? { uri: movie.poster } : movie.poster}
+                source={typeof event.poster === 'string' ? { uri: event.poster } : event.poster}
                 style={styles.poster}
                 resizeMode="cover"
               />
-              <View style={styles.ratingBadge}>
-                <FontAwesome
-                  name="star"
-                  size={12}
-                  color="#FFD700"
-                />
-                <Text style={styles.ratingText}>{movie.rating.toFixed(1)}</Text>
-              </View>
             </View>
 
             <View style={styles.infoContainer}>
-              <Text style={styles.title} numberOfLines={2}>{movie.title}</Text>
+              <Text style={styles.title} numberOfLines={2}>{event.title}</Text>
+              <Text style={styles.eventType}>{event.type}</Text>
             </View>
           </TouchableOpacity>
 
@@ -74,7 +65,7 @@ export default function MovieCarousel({
               styles.bookButton,
               { backgroundColor: Colors[colorScheme ?? 'light'].primary }
             ]}
-            onPress={() => onBookPress?.(movie.id)}
+            onPress={() => onBookPress?.(event.id)}
           >
             <Text style={styles.bookButtonText}>Book Now</Text>
           </TouchableOpacity>
@@ -89,7 +80,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingVertical: 10,
   },
-  movieCard: {
+  eventCard: {
     width: ITEM_WIDTH,
     marginHorizontal: 10,
     borderRadius: 12,
@@ -114,23 +105,6 @@ const styles = StyleSheet.create({
     width: '100%',
     height: ITEM_HEIGHT,
   },
-  ratingBadge: {
-    position: 'absolute',
-    bottom: 10,
-    right: 10,
-    backgroundColor: 'rgba(0,0,0,0.7)',
-    paddingHorizontal: 8,
-    paddingVertical: 4,
-    borderRadius: 12,
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  ratingText: {
-    color: 'white',
-    marginLeft: 4,
-    fontSize: 12,
-    fontWeight: 'bold',
-  },
   infoContainer: {
     padding: 12,
     paddingBottom: 0,
@@ -140,6 +114,11 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     minHeight: 40,
     maxHeight: 48,
+  },
+  eventType: {
+    fontSize: 14,
+    color: 'gray',
+    marginTop: 4,
   },
   bookButton: {
     paddingVertical: 12,

@@ -8,6 +8,7 @@ import { Text } from '../components/ThemedText'
 import { useColorScheme } from '../hooks/useColorScheme';
 import Colors from '../constants/Colors';
 import MovieCarousel from '../components/MovieCarousel';
+import EventCarousel from '../components/EventCarousel';
 
 import cinemaLogo from '../assets/favicon.png';
 
@@ -38,6 +39,24 @@ const upcomingMovies = [
   { id: '8', title: 'Godzilla x Kong: The New Empire', rating: 9.0, poster: kongPoster },
 ];
 
+
+// import event posters
+const swiftPoster = require('../assets/events/taylor.jpg')
+const f1Poster = require('../assets/events/f1.jpg')
+const jjPoster = require('../assets/events/jjlin.png')
+const lolPoster = require('../assets/events/lol.jpg')
+
+const ongoingEvents = [
+  { id: '9', title: 'Taylor Swift Concert Livestream', type: 'Concert', poster: swiftPoster },
+  { id: '10', title: 'Singapore Grand Prix Livestream', type: 'Sports', poster: f1Poster },
+];
+
+const upcomingEvents = [
+  { id: '12', title: 'JJ Lin Concert Livestream', type: 'Concert', poster: jjPoster },
+  { id: '11', title: 'League of Legends World Championship Livestream', type: 'eSports', poster: lolPoster },
+];
+
+
 export default function HomeScreen() {
   const colorScheme = useColorScheme();
   
@@ -63,16 +82,28 @@ export default function HomeScreen() {
       
       {/* Now Showing Section */}
       <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Now Showing Movies</Text>
+        <Text style={styles.sectionTitle}>Ongoing Movies</Text>
         <MovieCarousel movies={nowShowingMovies} />
       </View>
       
       {/* Coming Soon Section */}
       <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Movies Coming Soon</Text>
+        <Text style={styles.sectionTitle}>Upcoming Movies</Text>
         <MovieCarousel movies={upcomingMovies} />
       </View>
+            {/* Ongoing Events Section */}
+            <View style={styles.section}>
+        <Text style={styles.sectionTitle}>Ongoing Events</Text>
+        <EventCarousel events={ongoingEvents} />
+      </View>
       
+      {/* Upcoming Events Section */}
+      <View style={styles.section}>
+        <Text style={styles.sectionTitle}>Upcoming Events</Text>
+        <EventCarousel events={upcomingEvents} />
+      </View>
+
+
     </ScrollView>
   );
 }
