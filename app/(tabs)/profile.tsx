@@ -4,6 +4,9 @@ import { FontAwesome } from '@expo/vector-icons';
 import { ScrollView } from 'react-native';
 import { Image } from 'react-native';
 
+import { useRouter } from 'expo-router';
+
+
 const Colors = {
   primary: '#2C5E91',
   secondary: '#4A90E2',
@@ -19,19 +22,20 @@ const userData = {
   email: 'john.doe@example.com',
   membershipNo: 'CC12345678',
   membershipTier: 'Silver',
-  points: 350,
-  nextTierPoints: 1000,
+  points: 750,
+  nextTierPoints: 1500,
   upcomingBookings: 2,
 };
 
 export default function ProfileScreen() {
+  const router = useRouter();
   return (
     <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
       {/* Profile Header */}
       <View style={styles.profileHeader}>
         <View style={styles.profilePicContainer}>
           <Image
-            source={require('../assets/images/profile-placeholder.png')}
+            source={require('../../assets/images/profile-placeholder.png')}
             style={styles.profilePic}
           />
           <View style={styles.membershipBadge}>
@@ -47,12 +51,15 @@ export default function ProfileScreen() {
       </View>
 
       {/* Points Card */}
-      <View style={styles.pointsCard}>
+      <Pressable 
+        style={styles.pointsCard}
+        onPress={() => router.push('/membership')}
+      >
         <View style={styles.pointsHeader}>
           <RNText style={styles.pointsTitle}>Cathay Points</RNText>
         </View>
 
-        <RNText style={styles.pointsValue}>{userData.points}</RNText>
+        <RNText style={styles.pointsValue}>Silver Tier</RNText>
 
         <View style={styles.progressContainer}>
           <View style={styles.progressBar}>
@@ -73,20 +80,24 @@ export default function ProfileScreen() {
         <RNText style={styles.validityText}>
           Valid until December 31, 2025
         </RNText>
-      </View>
+        
+        {/* Subtle shine effect */}
+        <View style={styles.shine} pointerEvents="none" />
+
+      <View style={styles.viewBenefitsContainer}>
+          <RNText style={styles.viewBenefitsText}>View My Benefits</RNText>
+          <FontAwesome name="chevron-right" size={16} color={Colors.primary} />
+        </View>
+      </Pressable>
 
       {/* Menu Items */}
       <View style={styles.menuContainer}>
         {[
           {
-            icon: 'ticket',
-            title: 'My Bookings',
-            subtitle: `${userData.upcomingBookings} upcoming bookings`
-          },
-          {
             icon: 'history',
             title: 'Booking History',
-            subtitle: 'View your past bookings'
+            subtitle: `View your past bookings`,
+            route: '/my_booking' // Add route for navigation
           },
           {
             icon: 'credit-card',
@@ -109,6 +120,7 @@ export default function ProfileScreen() {
             icon={item.icon}
             title={item.title}
             subtitle={item.subtitle}
+            route={item.route}
             isLast={index === 4}
           />
         ))}
@@ -123,12 +135,22 @@ export default function ProfileScreen() {
 }
 
 // Helper component for menu options
-function MenuOption({ icon, title, subtitle, isLast }) {
+function MenuOption({ icon, title, subtitle, route, isLast }) {
+  const router = useRouter();
+
+  const handlePress = () => {
+    if (route) {
+      router.push(route);
+    }
+  };
   return (
     <Pressable style={[
       styles.menuOption,
       isLast ? styles.lastMenuItem : {}
-    ]}>
+      
+    ]}
+    onPress={handlePress}>
+      
       <FontAwesome
         name={icon}
         size={24}
@@ -183,59 +205,8 @@ const styles = StyleSheet.create({
     color: Colors.white,
     opacity: 0.8,
   },
-  pointsCard: {
-    backgroundColor: Colors.white,
-    margin: 15,
-    padding: 20,
-    borderRadius: 10,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
-  },
-  pointsHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginBottom: 15,
-  },
-  pointsTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: Colors.primary,
-  },
-  pointsValue: {
-    fontSize: 36,
-    fontWeight: 'bold',
-    color: Colors.primary,
-    textAlign: 'center',
-    marginBottom: 15,
-  },
-  progressContainer: {
-    marginTop: 10,
-  },
-  progressBar: {
-    height: 10,
-    backgroundColor: '#E0E0E0',
-    borderRadius: 5,
-    overflow: 'hidden',
-  },
-  progressIndicator: {
-    height: '100%',
-    backgroundColor: Colors.primary,
-  },
-  progressText: {
-    fontSize: 12,
-    color: Colors.gray,
-    textAlign: 'center',
-    marginTop: 5,
-  },
-  validityText: {
-    fontSize: 12,
-    color: Colors.gray,
-    textAlign: 'center',
-    marginTop: 15,
-  },
+  
+ 
   menuContainer: {
     backgroundColor: Colors.white,
     marginHorizontal: 15,
@@ -290,4 +261,81 @@ const styles = StyleSheet.create({
     height: 80,
     borderRadius: 40, 
   },
+    
+  pointsCard: {
+    margin: 15,
+    padding: 20,
+    borderRadius: 15,
+    borderWidth: 1,
+    borderColor: 'rgba(150, 150, 170, 0.2)', // Subtle silver border
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.15,
+    shadowRadius: 6,
+    elevation: 5,
+    // Add a metallic gradient effect
+    backgroundColor: 'linear-gradient(145deg, #E6EAF0, #F9FBFF)',
+  },
+  pointsHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 15,
+    alignItems: 'center',
+  },
+  pointsTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#4A5568', // Deeper silver-gray
+    letterSpacing: 0.5,
+  },
+  pointsValue: {
+    fontSize: 40,
+    fontWeight: 'bold',
+    color: '#2C5E91', // Keeping the original primary color
+    textAlign: 'center',
+    marginBottom: 15,
+    letterSpacing: -1,
+  },
+  progressContainer: {
+    marginTop: 10,
+    backgroundColor: 'rgba(255,255,255,0.7)', // Slight white overlay
+    borderRadius: 10,
+    padding: 10,
+  },
+  progressBar: {
+    height: 12,
+    backgroundColor: 'rgba(150, 150, 170, 0.2)', // Silver-gray base
+    borderRadius: 6,
+    overflow: 'hidden',
+  },
+  progressIndicator: {
+    height: '100%',
+    backgroundColor: '#2C5E91', // Original primary color as progress fill
+    borderRadius: 6,
+  },
+  progressText: {
+    fontSize: 13,
+    color: '#4A5568', // Silver-gray text
+    textAlign: 'center',
+    marginTop: 8,
+    fontWeight: '500',
+  },
+  validityText: {
+    fontSize: 12,
+    color: '#718096', // Softer silver-gray
+    textAlign: 'center',
+    marginTop: 15,
+    fontStyle: 'italic',
+  },
+  // Optional: Add a subtle shine effect (note: this is a simplified approximation)
+  shine: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: 'rgba(255,255,255,0.2)',
+    transform: [{ rotate: '45deg' }],
+    opacity: 0.3,
+  }
 });

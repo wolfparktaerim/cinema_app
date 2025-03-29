@@ -24,4 +24,4 @@ export default {
     accent: '#FFC44D', // Lighter gold
     lightGray: '#292929',
   },
-};
+};    

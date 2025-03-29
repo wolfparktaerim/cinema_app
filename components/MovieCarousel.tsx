@@ -6,6 +6,7 @@ import { Text } from '@/components/ThemedText';
 import Colors from '@/constants/Colors';
 import { useColorScheme } from '@/hooks/useColorScheme';
 
+
 // Define the movie type
 interface Movie {
   id: string;
@@ -23,8 +24,9 @@ interface MovieCarouselProps {
 
 // Get screen dimensions for better scaling
 const { width } = Dimensions.get('window');
-const ITEM_WIDTH = width * 0.6;
-const ITEM_HEIGHT = ITEM_WIDTH * 1.3;
+const ITEM_WIDTH = width * 0.45; // Reduced width
+const ITEM_HEIGHT = ITEM_WIDTH * 1.2; // Adjusted height
+
 
 export default function MovieCarousel({ 
   movies, 

@@ -6,16 +6,16 @@ import Colors from '@/constants/Colors';
 import { useColorScheme } from '@/hooks/useColorScheme';
 import FoodCategory from '@/components/FoodCategory';
 
-const popcorn_m = require('../assets/food/popcorn_m.jpg');
-const popcorn_l = require('../assets/food/popcorn_l.jpg');
-const popcorn_c = require('../assets/food/popcorn_c.png');
-const cola_m = require('../assets/food/cocacola_m.webp');
-const sprite_m = require('../assets/food/sprite_m.jpeg');
-const nacho = require('../assets/food/nacho.webp');
-const hotdog = require('../assets/food/hotdog.jpg');
-const nuggets = require('../assets/food/nuggets.png');
-const combo_1 = require('../assets/food/combo_1.jpeg');
-const combo_2 = require('../assets/food/combo_2.jpeg');
+const popcorn_m = require('../../assets/food/popcorn_m.jpg');
+const popcorn_l = require('../../assets/food/popcorn_l.jpg');
+const popcorn_c = require('../../assets/food/popcorn_c.png');
+const cola_m = require('../../assets/food/cocacola_m.webp');
+const sprite_m = require('../../assets/food/sprite_m.jpeg');
+const nacho = require('../../assets/food/nacho.webp');
+const hotdog = require('../../assets/food/hotdog.jpg');
+const nuggets = require('../../assets/food/nuggets.png');
+const combo_1 = require('../../assets/food/combo_1.jpeg');
+const combo_2 = require('../../assets/food/combo_2.jpeg');
 
 
 

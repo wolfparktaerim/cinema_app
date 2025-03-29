@@ -1,28 +1,28 @@
-// Fix the import statements at the top
+
 import React from 'react';
-import { StyleSheet, ScrollView, View, Image } from 'react-native';
+import { StyleSheet, ScrollView, View, Image,} from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 
 // Make sure the path is correct for your project structure
-import { Text } from '../components/ThemedText'
-import { useColorScheme } from '../hooks/useColorScheme';
-import Colors from '../constants/Colors';
-import MovieCarousel from '../components/MovieCarousel';
-import EventCarousel from '../components/EventCarousel';
+import { Text } from '../../components/ThemedText'
+import { useColorScheme } from '../../hooks/useColorScheme';
+import Colors from '../../constants/Colors';
+import MovieCarousel from '../../components/MovieCarousel';
+import EventCarousel from '../../components/EventCarousel';
 
-import cinemaLogo from '../assets/favicon.png';
+import cinemaLogo from '../../assets/favicon.png';
 
 
 
 // import movie posters
-const marioPoster = require('../assets/movies/mario.webp');
-const missionImpossiblePoster = require('../assets/movies/mission_impossible.webp');
-const moanaPoster = require('../assets/movies/moana_2.webp');
-const spidermanPoster = require('../assets/movies/spiderman.webp');
-const alienPoster = require('../assets/movies/alien.jpg');
-const kongPoster = require('../assets/movies/kong.webp');
-const borderlandsPoster = require('../assets/movies/borderlands.webp');
-const gladiatorPoster = require('../assets/movies/gladiator.jpg')
+const marioPoster = require('../../assets/movies/mario.webp');
+const missionImpossiblePoster = require('../../assets/movies/mission_impossible.webp');
+const moanaPoster = require('../../assets/movies/moana_2.webp');
+const spidermanPoster = require('../../assets/movies/spiderman.webp');
+const alienPoster = require('../../assets/movies/alien.jpg');
+const kongPoster = require('../../assets/movies/kong.webp');
+const borderlandsPoster = require('../../assets/movies/borderlands.webp');
+const gladiatorPoster = require('../../assets/movies/gladiator.jpg')
 
 // Sample data for now
 const nowShowingMovies = [
@@ -41,10 +41,10 @@ const upcomingMovies = [
 
 
 // import event posters
-const swiftPoster = require('../assets/events/taylor.jpg')
-const f1Poster = require('../assets/events/f1.jpg')
-const jjPoster = require('../assets/events/jjlin.png')
-const lolPoster = require('../assets/events/lol.jpg')
+const swiftPoster = require('../../assets/events/taylor.jpg')
+const f1Poster = require('../../assets/events/f1.jpg')
+const jjPoster = require('../../assets/events/jjlin.png')
+const lolPoster = require('../../assets/events/lol.jpg')
 
 const ongoingEvents = [
   { id: '9', title: 'Taylor Swift Concert Livestream', type: 'Concert', poster: swiftPoster },
