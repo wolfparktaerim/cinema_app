@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { 
-  View, 
-  Text, 
-  StyleSheet, 
-  TouchableOpacity, 
-  ScrollView, 
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  ScrollView,
   Image,
   Modal,
   TextInput,
@@ -26,7 +26,7 @@ const SAMPLE_ENTERTAINMENT = [
     suggestedYear: '2025',
     votes: 128,
     comments: 24,
-    imageUrl: 'https://m.media-amazon.com/images/M/MV5BNGY4NDkyNTEtNTE4Ny00NjI0LTgzYTEtN2UyZDRlODFlNTVlXkEyXkFqcGc@._V1_.jpg',
+    imageUrl: require('../../assets/movies/dune3.jpg'),
   },
   {
     id: '2',
@@ -37,7 +37,7 @@ const SAMPLE_ENTERTAINMENT = [
     suggestedYear: '2025',
     votes: 87,
     comments: 15,
-    imageUrl: 'https://res.klook.com/image/upload/v1728983293/blnmqz5fi2wmewrib46w.jpg',
+    imageUrl: require('../../assets/movies/coldplay.jpg'),
   },
   {
     id: '3',
@@ -48,7 +48,7 @@ const SAMPLE_ENTERTAINMENT = [
     suggestedYear: '2025',
     votes: 53,
     comments: 8,
-    imageUrl: 'https://upload.wikimedia.org/wikipedia/en/thumb/4/44/NBA_Finals_logo_%282022%29.svg/1200px-NBA_Finals_logo_%282022%29.svg.png',
+    imageUrl: require('../../assets/movies/nba.png'),
   }
 ];
 
@@ -76,41 +76,41 @@ const EntertainmentSuggestionsScreen = () => {
   }, [selectedItem]);
 
   const handleVote = (id) => {
-    setSuggestions(prevSuggestions => 
-      prevSuggestions.map(item => 
+    setSuggestions(prevSuggestions =>
+      prevSuggestions.map(item =>
         item.id === id ? { ...item, votes: item.votes + 1 } : item
       )
     );
-    
+
     showNotification('Vote recorded! Thanks for your interest');
   };
 
   const handleCommentSubmit = () => {
     if (commentText.trim() === '') return;
-    
+
     const newComment = {
       id: Date.now().toString(),
       user: 'You',
       text: commentText,
       timestamp: 'Just now'
     };
-    
+
     setComments(prevComments => [newComment, ...prevComments]);
     setCommentText('');
-    
+
     showNotification('Comment added successfully!');
   };
 
   const showNotification = (message) => {
     setNotificationMessage(message);
     setShowSuccessNotification(true);
-    
+
     Animated.timing(fadeAnim, {
       toValue: 1,
       duration: 300,
       useNativeDriver: true
     }).start();
-    
+
     setTimeout(() => {
       Animated.timing(fadeAnim, {
         toValue: 0,
@@ -136,10 +136,10 @@ const EntertainmentSuggestionsScreen = () => {
     if (!showSuccessNotification) return null;
 
     return (
-      <Animated.View 
+      <Animated.View
         style={[
-          styles.notification, 
-          { 
+          styles.notification,
+          {
             opacity: fadeAnim,
             transform: [{
               translateY: fadeAnim.interpolate({
@@ -158,8 +158,13 @@ const EntertainmentSuggestionsScreen = () => {
   const renderEntertainmentCard = (item) => {
     return (
       <View key={item.id} style={styles.card}>
-        <Image source={{ uri: item.imageUrl }} style={styles.cardImage} />
-        
+        <Image
+          source={typeof item.imageUrl === 'string' ? { uri: item.imageUrl } : item.imageUrl}
+          style={styles.cardImage}
+          defaultSource={require('../../assets/movies/load.webp')} // Placeholder image
+          resizeMode="cover"
+        />
+
         <View style={styles.cardContent}>
           <View style={styles.cardHeader}>
             <Text style={styles.cardTitle}>{item.title}</Text>
@@ -169,25 +174,25 @@ const EntertainmentSuggestionsScreen = () => {
               </Text>
             </View>
           </View>
-          
+
           <Text style={styles.cardDescription} numberOfLines={2}>
             {item.description}
           </Text>
-          
+
           <Text style={styles.dateInfo}>
             Suggested for: {item.suggestedMonth} {item.suggestedYear}
           </Text>
-          
+
           <View style={styles.cardActions}>
-            <TouchableOpacity 
+            <TouchableOpacity
               style={styles.voteButton}
               onPress={() => handleVote(item.id)}
             >
               <FontAwesome name="thumbs-up" size={18} color="#0055A5" />
               <Text style={styles.voteCount}>{item.votes}</Text>
             </TouchableOpacity>
-            
-            <TouchableOpacity 
+
+            <TouchableOpacity
               style={styles.commentButton}
               onPress={() => openCommentsModal(item)}
             >
@@ -202,7 +207,7 @@ const EntertainmentSuggestionsScreen = () => {
 
   const renderCommentsModal = () => {
     if (!selectedItem) return null;
-    
+
     return (
       <Modal
         transparent={true}
@@ -218,9 +223,9 @@ const EntertainmentSuggestionsScreen = () => {
                 <FontAwesome name="close" size={24} color="#333" />
               </TouchableOpacity>
             </View>
-            
+
             <Text style={styles.modalDescription}>{selectedItem.description}</Text>
-            
+
             <View style={styles.commentInputContainer}>
               <TextInput
                 style={styles.commentInput}
@@ -229,16 +234,16 @@ const EntertainmentSuggestionsScreen = () => {
                 onChangeText={setCommentText}
                 multiline
               />
-              <TouchableOpacity 
+              <TouchableOpacity
                 style={styles.commentSubmitButton}
                 onPress={handleCommentSubmit}
               >
                 <FontAwesome name="send" size={18} color="white" />
               </TouchableOpacity>
             </View>
-            
+
             <Text style={styles.commentsTitle}>Comments ({comments.length})</Text>
-            
+
             <ScrollView style={styles.commentsContainer}>
               {comments.map(comment => (
                 <View key={comment.id} style={styles.commentItem}>
@@ -257,17 +262,17 @@ const EntertainmentSuggestionsScreen = () => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView edges={['top']} style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.screenTitle}>Entertainment Picks</Text>
         <Text style={styles.screenSubtitle}>
           Vote or comment on what you'd like to see at our venue
         </Text>
       </View>
-      
+
       <ScrollView contentContainerStyle={styles.scrollContainer}>
         {suggestions.map(renderEntertainmentCard)}
-        
+
         <Pressable
           style={styles.suggestionLink}
           onPress={() => router.push('/entertainment-request')}
@@ -278,7 +283,7 @@ const EntertainmentSuggestionsScreen = () => {
           <FontAwesome name="arrow-right" size={16} color="#0055A5" />
         </Pressable>
       </ScrollView>
-      
+
       {renderCommentsModal()}
       {renderNotification()}
     </SafeAreaView>
@@ -289,24 +294,30 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#F7F9FC',
+    paddingTop: 80, // Ensure content starts below header
   },
   header: {
     padding: 15,
     borderBottomWidth: 1,
-    borderBottomColor: '#EAEAEA',
-    backgroundColor: 'white',
+    borderBottomColor: '#004080', // Slightly darker blue for subtle separation
+    backgroundColor: '#0055A5', // Blue header background
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    zIndex: 10,
   },
   screenTitle: {
     fontSize: 24,
     fontWeight: 'bold',
     textAlign: 'center',
-    color: '#0055A5',
+    color: '#FFFFFF', // White text
     marginBottom: 5,
   },
   screenSubtitle: {
     fontSize: 16,
     textAlign: 'center',
-    color: '#666',
+    color: '#FFFFFF',
   },
   scrollContainer: {
     padding: 15,

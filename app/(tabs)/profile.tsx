@@ -6,7 +6,6 @@ import { Image } from 'react-native';
 
 import { useRouter } from 'expo-router';
 
-
 const Colors = {
   primary: '#2C5E91',
   secondary: '#4A90E2',
@@ -81,10 +80,10 @@ export default function ProfileScreen() {
           Valid until December 31, 2025
         </RNText>
         
-        {/* Subtle shine effect */}
+        {/* Enhanced shine effect */}
         <View style={styles.shine} pointerEvents="none" />
 
-      <View style={styles.viewBenefitsContainer}>
+        <View style={styles.viewBenefitsContainer}>
           <RNText style={styles.viewBenefitsText}>View My Benefits</RNText>
           <FontAwesome name="chevron-right" size={16} color={Colors.primary} />
         </View>
@@ -173,12 +172,19 @@ const styles = StyleSheet.create({
   },
   profileHeader: {
     backgroundColor: Colors.primary,
-    paddingVertical: 30,
+    paddingVertical: 35,
     alignItems: 'center',
+    borderBottomLeftRadius: 20,
+    borderBottomRightRadius: 20,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 3 },
+    shadowOpacity: 0.2,
+    shadowRadius: 5,
+    elevation: 6,
   },
   profilePicContainer: {
     position: 'relative',
-    marginBottom: 10,
+    marginBottom: 12,
   },
   membershipBadge: {
     position: 'absolute',
@@ -188,6 +194,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: 8,
     paddingVertical: 4,
     borderRadius: 12,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 3,
+    elevation: 4,
   },
   membershipBadgeText: {
     fontSize: 10,
@@ -195,41 +206,43 @@ const styles = StyleSheet.create({
     color: Colors.primary,
   },
   profileName: {
-    fontSize: 24,
+    fontSize: 26,
     fontWeight: 'bold',
     color: Colors.white,
     marginTop: 10,
+    letterSpacing: 0.5,
   },
   membershipId: {
     fontSize: 14,
     color: Colors.white,
-    opacity: 0.8,
+    opacity: 0.9,
+    marginTop: 4,
   },
   
- 
   menuContainer: {
     backgroundColor: Colors.white,
     marginHorizontal: 15,
-    borderRadius: 10,
+    borderRadius: 15,
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
+    shadowOffset: { width: 0, height: 3 },
     shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
+    shadowRadius: 6,
+    elevation: 4,
+    marginBottom: 15,
   },
   menuOption: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingVertical: 15,
-    paddingHorizontal: 15,
+    paddingVertical: 16,
+    paddingHorizontal: 20,
     borderBottomWidth: 1,
-    borderBottomColor: '#eee',
+    borderBottomColor: '#eeeeee',
   },
   lastMenuItem: {
     borderBottomWidth: 0,
   },
   menuIcon: {
-    marginRight: 15,
+    marginRight: 18,
   },
   menuTextContainer: {
     flex: 1,
@@ -242,39 +255,50 @@ const styles = StyleSheet.create({
   menuSubtitle: {
     fontSize: 14,
     color: Colors.gray,
-    marginTop: 3,
+    marginTop: 4,
   },
   logoutButton: {
     backgroundColor: '#E74C3C',
     margin: 15,
-    padding: 15,
-    borderRadius: 8,
+    padding: 16,
+    borderRadius: 12,
     alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    elevation: 4,
+    marginBottom: 25,
   },
   logoutText: {
     color: Colors.white,
     fontSize: 16,
     fontWeight: 'bold',
+    letterSpacing: 0.5,
   },
   profilePic: {
-    width: 80,  
-    height: 80,
-    borderRadius: 40, 
+    width: 90,  
+    height: 90,
+    borderRadius: 45,
+    borderWidth: 3,
+    borderColor: 'rgba(255, 255, 255, 0.8)',
   },
     
   pointsCard: {
     margin: 15,
-    padding: 20,
-    borderRadius: 15,
+    padding: 22,
+    borderRadius: 18,
     borderWidth: 1,
-    borderColor: 'rgba(150, 150, 170, 0.2)', // Subtle silver border
+    borderColor: 'rgba(150, 150, 170, 0.15)',
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 4 },
+    shadowOffset: { width: 0, height: 5 },
     shadowOpacity: 0.15,
-    shadowRadius: 6,
-    elevation: 5,
-    // Add a metallic gradient effect
-    backgroundColor: 'linear-gradient(145deg, #E6EAF0, #F9FBFF)',
+    shadowRadius: 8,
+    elevation: 6,
+    backgroundColor: Colors.white,
+    position: 'relative',
+    overflow: 'hidden',
+    marginTop: -20,
   },
   pointsHeader: {
     flexDirection: 'row',
@@ -285,57 +309,76 @@ const styles = StyleSheet.create({
   pointsTitle: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#4A5568', // Deeper silver-gray
+    color: '#4A5568',
     letterSpacing: 0.5,
   },
   pointsValue: {
     fontSize: 40,
     fontWeight: 'bold',
-    color: '#2C5E91', // Keeping the original primary color
+    color: '#2C5E91',
     textAlign: 'center',
-    marginBottom: 15,
-    letterSpacing: -1,
+    marginBottom: 20,
+    letterSpacing: -0.5,
+    textShadowColor: 'rgba(0, 0, 0, 0.1)',
+    textShadowOffset: { width: 0, height: 1 },
+    textShadowRadius: 3,
   },
   progressContainer: {
     marginTop: 10,
-    backgroundColor: 'rgba(255,255,255,0.7)', // Slight white overlay
-    borderRadius: 10,
-    padding: 10,
+    backgroundColor: 'rgba(255, 255, 255, 0.9)',
+    borderRadius: 12,
+    padding: 12,
+    borderWidth: 1,
+    borderColor: 'rgba(0, 0, 0, 0.05)',
   },
   progressBar: {
-    height: 12,
-    backgroundColor: 'rgba(150, 150, 170, 0.2)', // Silver-gray base
-    borderRadius: 6,
+    height: 14,
+    backgroundColor: 'rgba(150, 150, 170, 0.15)',
+    borderRadius: 7,
     overflow: 'hidden',
   },
   progressIndicator: {
     height: '100%',
-    backgroundColor: '#2C5E91', // Original primary color as progress fill
-    borderRadius: 6,
+    backgroundColor: Colors.primary,
+    borderRadius: 7,
   },
   progressText: {
     fontSize: 13,
-    color: '#4A5568', // Silver-gray text
+    color: '#4A5568',
     textAlign: 'center',
-    marginTop: 8,
+    marginTop: 10,
     fontWeight: '500',
   },
   validityText: {
     fontSize: 12,
-    color: '#718096', // Softer silver-gray
+    color: '#718096',
     textAlign: 'center',
-    marginTop: 15,
+    marginTop: 18,
     fontStyle: 'italic',
   },
-  // Optional: Add a subtle shine effect (note: this is a simplified approximation)
   shine: {
     position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    backgroundColor: 'rgba(255,255,255,0.2)',
+    top: -150,
+    left: -100,
+    width: 300,
+    height: 300,
+    backgroundColor: 'rgba(255, 255, 255, 0.25)',
     transform: [{ rotate: '45deg' }],
-    opacity: 0.3,
+    opacity: 0.5,
+  },
+  viewBenefitsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    marginTop: 20,
+    paddingTop: 15,
+    borderTopWidth: 1,
+    borderTopColor: 'rgba(0, 0, 0, 0.05)',
+  },
+  viewBenefitsText: {
+    fontSize: 14,
+    fontWeight: '600',
+    color: Colors.primary,
+    marginRight: 8,
   }
 });
