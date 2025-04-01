@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, View, Image, ScrollView, TouchableOpacity, Dimensions } from 'react-native';
+import { FontAwesome } from '@expo/vector-icons';
 import { Text } from '@/components/ThemedText';
 import Colors from '@/constants/Colors';
 import { useColorScheme } from '@/hooks/useColorScheme';
@@ -21,8 +22,8 @@ interface EventCarouselProps {
 
 // Get screen dimensions for better scaling
 const { width } = Dimensions.get('window');
-const ITEM_WIDTH = width * 0.45; // Reduced width
-const ITEM_HEIGHT = ITEM_WIDTH * 1.2; // Adjusted height
+const ITEM_WIDTH = width * 0.42; // Reduced width further from 0.45
+const ITEM_HEIGHT = ITEM_WIDTH * 1.2; 
 
 export default function EventCarousel({ 
   events, 
@@ -30,6 +31,18 @@ export default function EventCarousel({
   onBookPress 
 }: EventCarouselProps) {
   const colorScheme = useColorScheme();
+  // Track favorites state
+  const [favorites, setFavorites] = useState<Record<string, boolean>>({});
+
+  const toggleFavorite = (eventId: string, event: any) => {
+    // Stop event propagation to prevent triggering the event poster touch
+    event.stopPropagation();
+    
+    setFavorites(prev => ({
+      ...prev,
+      [eventId]: !prev[eventId]
+    }));
+  };
 
   return (
     <ScrollView
@@ -52,6 +65,23 @@ export default function EventCarousel({
                 style={styles.poster}
                 resizeMode="cover"
               />
+              {/* Heart toggle button */}
+              <TouchableOpacity
+                style={styles.heartButton}
+                onPress={(e) => toggleFavorite(event.id, e)}
+                activeOpacity={0.7}
+              >
+                <FontAwesome
+                  name={favorites[event.id] ? "heart" : "heart-o"}
+                  size={20}
+                  color={favorites[event.id] ? "#ff4081" : "white"}
+                />
+              </TouchableOpacity>
+              
+              {/* Event type badge */}
+              <View style={styles.eventTypeBadge}>
+                <Text style={styles.eventTypeBadgeText}>{event.type}</Text>
+              </View>
             </View>
 
             <View style={styles.infoContainer}>
@@ -104,6 +134,29 @@ const styles = StyleSheet.create({
   poster: {
     width: '100%',
     height: ITEM_HEIGHT,
+  },
+  heartButton: {
+    position: 'absolute',
+    top: 10,
+    left: 10,
+    backgroundColor: 'rgba(0,0,0,0.5)',
+    borderRadius: 20,
+    padding: 8,
+    zIndex: 1,
+  },
+  eventTypeBadge: {
+    position: 'absolute',
+    bottom: 10,
+    right: 10,
+    backgroundColor: 'rgba(0,0,0,0.7)',
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    borderRadius: 12,
+  },
+  eventTypeBadgeText: {
+    color: 'white',
+    fontSize: 12,
+    fontWeight: 'bold',
   },
   infoContainer: {
     padding: 12,

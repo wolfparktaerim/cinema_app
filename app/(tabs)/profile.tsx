@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Pressable, Text as RNText } from 'react-native';
+import { StyleSheet, View, Pressable, Text as RNText, Alert } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 import { ScrollView } from 'react-native';
 import { Image } from 'react-native';
@@ -24,10 +24,26 @@ const userData = {
   points: 750,
   nextTierPoints: 1500,
   upcomingBookings: 2,
+  referralCode: 'JOHND2025', // Added referral code
+  referralBonus: 500, // Points earned per successful referral
+  successfulReferrals: 3, // Number of successful referrals
 };
 
 export default function ProfileScreen() {
   const router = useRouter();
+  
+  // Function to handle copying referral code
+  const handleCopyReferral = () => {
+    // In a real app, this would use Clipboard.setString(userData.referralCode)
+    Alert.alert("Copied!", "Referral code copied to clipboard", [{ text: "OK" }]);
+  };
+  
+  // Function to handle sharing referral code
+  const handleShareReferral = () => {
+    // In a real app, this would use Share.share()
+    Alert.alert("Share", "Sharing referral code via...", [{ text: "OK" }]);
+  };
+  
   return (
     <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
       {/* Profile Header */}
@@ -89,12 +105,50 @@ export default function ProfileScreen() {
         </View>
       </Pressable>
 
+      {/* Referral Program Card */}
+      <View style={styles.referralCard}>
+        <View style={styles.referralHeader}>
+          <FontAwesome name="gift" size={24} color={Colors.primary} />
+          <RNText style={styles.referralTitle}>Refer a Friend</RNText>
+        </View>
+        
+        <RNText style={styles.referralDescription}>
+          Share your referral code and earn {userData.referralBonus} points for each friend who signs up!
+        </RNText>
+        
+        <View style={styles.referralCodeContainer}>
+          <View style={styles.referralCodeBox}>
+            <RNText style={styles.referralCode}>{userData.referralCode}</RNText>
+          </View>
+          <Pressable style={styles.copyButton} onPress={handleCopyReferral}>
+            <FontAwesome name="copy" size={18} color={Colors.white} />
+          </Pressable>
+        </View>
+        
+        <View style={styles.referralStats}>
+          <View style={styles.statItem}>
+            <RNText style={styles.statValue}>{userData.successfulReferrals}</RNText>
+            <RNText style={styles.statLabel}>Friends Referred</RNText>
+          </View>
+          <View style={styles.statDivider} />
+          <View style={styles.statItem}>
+            <RNText style={styles.statValue}>{userData.successfulReferrals * userData.referralBonus}</RNText>
+            <RNText style={styles.statLabel}>Points Earned</RNText>
+          </View>
+        </View>
+        
+        <Pressable style={styles.shareButton} onPress={handleShareReferral}>
+          <FontAwesome name="share-alt" size={16} color={Colors.white} style={styles.shareIcon} />
+          <RNText style={styles.shareText}>Share My Code</RNText>
+        </Pressable>
+      </View>
+
       {/* Menu Items */}
       <View style={styles.menuContainer}>
         {[
           {
             icon: 'history',
-            title: 'Booking History',
+            title: 'My Watch List',
             subtitle: `View your past bookings`,
             route: '/my_booking' // Add route for navigation
           },
@@ -380,5 +434,122 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     color: Colors.primary,
     marginRight: 8,
-  }
+  },
+  // Referral card styles
+  referralCard: {
+    margin: 15,
+    padding: 20,
+    borderRadius: 18,
+    backgroundColor: Colors.white,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 3 },
+    shadowOpacity: 0.12,
+    shadowRadius: 6,
+    elevation: 5,
+    borderWidth: 1,
+    borderColor: 'rgba(150, 150, 170, 0.15)',
+  },
+  referralHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 15,
+  },
+  referralTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: Colors.text,
+    marginLeft: 12,
+  },
+  referralDescription: {
+    fontSize: 14,
+    color: Colors.gray,
+    marginBottom: 18,
+    lineHeight: 20,
+  },
+  referralCodeContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 20,
+  },
+  referralCodeBox: {
+    flex: 1,
+    backgroundColor: 'rgba(74, 144, 226, 0.1)',
+    borderRadius: 8,
+    paddingVertical: 12,
+    paddingHorizontal: 15,
+    marginRight: 10,
+    borderWidth: 1,
+    borderColor: 'rgba(74, 144, 226, 0.2)',
+  },
+  referralCode: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: Colors.primary,
+    textAlign: 'center',
+    letterSpacing: 1,
+  },
+  copyButton: {
+    backgroundColor: Colors.primary,
+    borderRadius: 8,
+    padding: 12,
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 48,
+    height: 48,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 2,
+    elevation: 3,
+  },
+  referralStats: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    marginBottom: 20,
+    paddingVertical: 15,
+    backgroundColor: 'rgba(247, 249, 252, 0.8)',
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: 'rgba(0, 0, 0, 0.05)',
+  },
+  statItem: {
+    alignItems: 'center',
+    flex: 1,
+  },
+  statValue: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: Colors.text,
+    marginBottom: 4,
+  },
+  statLabel: {
+    fontSize: 12,
+    color: Colors.gray,
+  },
+  statDivider: {
+    width: 1,
+    height: '80%',
+    backgroundColor: 'rgba(0, 0, 0, 0.1)',
+  },
+  shareButton: {
+    backgroundColor: Colors.secondary,
+    borderRadius: 12,
+    paddingVertical: 14,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.15,
+    shadowRadius: 3,
+    elevation: 3,
+  },
+  shareIcon: {
+    marginRight: 10,
+  },
+  shareText: {
+    color: Colors.white,
+    fontWeight: 'bold',
+    fontSize: 15,
+  },
 });

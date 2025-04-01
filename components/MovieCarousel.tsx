@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, View, Image, ScrollView, TouchableOpacity, Dimensions } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 
@@ -34,6 +34,18 @@ export default function MovieCarousel({
   onBookPress 
 }: MovieCarouselProps) {
   const colorScheme = useColorScheme();
+  // Track favorites state
+  const [favorites, setFavorites] = useState<Record<string, boolean>>({});
+
+  const toggleFavorite = (movieId: string, event: any) => {
+    // Stop event propagation to prevent triggering the poster touch
+    event.stopPropagation();
+    
+    setFavorites(prev => ({
+      ...prev,
+      [movieId]: !prev[movieId]
+    }));
+  };
 
   return (
     <ScrollView
@@ -56,6 +68,18 @@ export default function MovieCarousel({
                 style={styles.poster}
                 resizeMode="cover"
               />
+              {/* Heart toggle button */}
+              <TouchableOpacity
+                style={styles.heartButton}
+                onPress={(e) => toggleFavorite(movie.id, e)}
+                activeOpacity={0.7}
+              >
+                <FontAwesome
+                  name={favorites[movie.id] ? "heart" : "heart-o"}
+                  size={20}
+                  color={favorites[movie.id] ? "#ff4081" : "white"}
+                />
+              </TouchableOpacity>
               <View style={styles.ratingBadge}>
                 <FontAwesome
                   name="star"
@@ -115,6 +139,15 @@ const styles = StyleSheet.create({
   poster: {
     width: '100%',
     height: ITEM_HEIGHT,
+  },
+  heartButton: {
+    position: 'absolute',
+    top: 10,
+    left: 10,
+    backgroundColor: 'rgba(0,0,0,0.5)',
+    borderRadius: 20,
+    padding: 8,
+    zIndex: 1,
   },
   ratingBadge: {
     position: 'absolute',

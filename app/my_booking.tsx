@@ -184,10 +184,10 @@ interface Booking {
             {[...Array(5)].map((_, index) => (
               <TouchableOpacity 
                 key={index} 
-                onPress={() => setRating((index + 1) * 2)}
+                onPress={() => setRating((index + 1) * 1)}
               >
                 <FontAwesome
-                  name={index < rating / 2 ? 'star' : 'star-o'}
+                  name={index < rating ? 'star' : 'star-o'}
                   size={40}
                   color="#FFD700"
                   style={styles.starIcon}
@@ -195,7 +195,7 @@ interface Booking {
               </TouchableOpacity>
             ))}
           </View>
-          <Text style={styles.ratingText}>{rating}/10</Text>
+          <Text style={styles.ratingText}>{rating}/5</Text>
 
           <TextInput
             style={styles.commentInput}
@@ -227,7 +227,7 @@ interface Booking {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.screenTitle}>My Booking History</Text>
+      <Text style={styles.screenTitle}>John Doe's Watchlist</Text>
       <FlatList
         data={bookings}
         renderItem={renderBookingItem}
