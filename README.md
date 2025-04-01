@@ -1,9 +1,21 @@
-<<<<<<< HEAD
 # cinema_app
 =======
 # Welcome to G3T6's DBTT Interactive Prototype 
 
 This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+
+## Run on your local host
+
+In your terminal, run
+
+   ```bash
+   git clone https://github.com/wolfparktaerim/cinema_app
+   ```
+
+   ```bash
+   cd cinema_app
+   ```
+
 
 ## Get started
 
