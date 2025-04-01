@@ -350,7 +350,7 @@ const styles = StyleSheet.create({
   },
   tierCardContainer: {
     width: CARD_WIDTH,
-    height: 380,
+    height: 420, // Increase from 380 to give more space
     borderRadius: 20,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 8 },
@@ -428,11 +428,13 @@ const styles = StyleSheet.create({
   benefitsContainer: {
     marginVertical: 15,
     zIndex: 2,
+    maxHeight: 180, // Set a maximum height
+    overflow: 'scroll', // Make it scrollable
   },
   benefitRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 12,
+    marginBottom: 8, // Reduce from 12 to 8
   },
   benefitIcon: {
     marginRight: 10,
@@ -452,17 +454,17 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     alignItems: 'center',
     marginTop: 15,
-    zIndex: 2,
+    zIndex: 2,  // Already there, but make sure it's set to 2 or higher
     borderWidth: 1,
     borderColor: 'rgba(255,255,255,0.3)',
   },
   tierPointsLabel: {
-    color: Colors.textLight,
+    color: Colors.dark,  // Change to darker color
     fontSize: 12,
     fontWeight: '600',
   },
   tierPointsText: {
-    color: Colors.textLight,
+    color: Colors.dark,  // Change to darker color
     fontSize: 18,
     fontWeight: 'bold',
   },

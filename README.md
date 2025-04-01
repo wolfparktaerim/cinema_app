@@ -33,7 +33,7 @@ In your terminal, run
 
 3. Go to [localhost ](http://localhost:8081) to check the prototype on web page
 
-
+4. Adjust screen dimensions: Since this prototype is designed for a phone screen size, please inspect the page and adjust the viewport accordingly. You can do this by opening Developer Tools (F12 or right-click -> Inspect) and setting the screen size to a mobile device in the responsive mode.
 
 In the output, you'll find options to open the app in a
 - [development build](https://docs.expo.dev/develop/development-builds/introduction/)

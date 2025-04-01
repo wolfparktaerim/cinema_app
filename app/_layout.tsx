@@ -26,7 +26,7 @@ export default function RootLayout() {
       <Stack.Screen 
         name="my_booking" 
         options={{ 
-          headerTitle: 'My Watch List',
+          headerTitle: 'My Watchlist',
           headerStyle: {
             backgroundColor: '#0055A5',
           },
